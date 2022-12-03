@@ -39,34 +39,65 @@ function recup(products) {
 // 	elt.textContent = arrayProducts[0].name;
 // }
 
-function display() {
-	let cursor = document.querySelector(".items");
+// function display() {
+// 	let cursor = document.querySelector(".items");
 
-	let newLink = document.createElement("a");
-	newLink.setAttribute("href", "./product.html?id=42"); // il faut integrer la var id ici
+// 	let newLink = document.createElement("a");
+// 	newLink.setAttribute("href", "./product.html?id=42"); // il faut integrer la var id ici
 
-	let newArticle = document.createElement("article");
+// 	let newArticle = document.createElement("article");
 
-	let newImg = document.createElement("img");
-	newImg.setAttribute("src", arrayProducts[0].imageUrl);
-	newImg.setAttribute("alt", arrayProducts[0].altTxt);
+// 	let newImg = document.createElement("img");
+// 	newImg.setAttribute("src", arrayProducts[0].imageUrl);
+// 	newImg.setAttribute("alt", arrayProducts[0].altTxt);
 
-	let newTitle = document.createElement("h3");
-	newTitle.textContent = arrayProducts[0].name;
+// 	let newTitle = document.createElement("h3");
+// 	newTitle.textContent = arrayProducts[0].name;
 
-	let newDescription = document.createElement("p");
-	newDescription.textContent = arrayProducts[0].description;
+// 	let newDescription = document.createElement("p");
+// 	newDescription.textContent = arrayProducts[0].description;
 
-	cursor.append(newLink);
+// 	cursor.append(newLink);
 
-	cursor = document.querySelector(".items > a");
-	console.log(cursor);
-	cursor.append(newArticle);
+// 	cursor = document.querySelector(".items > a");
+// 	console.log(cursor);
+// 	cursor.append(newArticle);
 
-	cursor = document.querySelector(".items > a > article");
-	cursor.append(newImg);
-	cursor.append(newTitle);
-}
+// 	cursor = document.querySelector(".items > a > article");
+// 	cursor.append(newImg);
+// 	cursor.append(newTitle);
+// }
+
+// function display() {
+// 	for (let i = 0; i < arrayProducts.length; i++) {
+// 		let cursor = document.querySelector(".items");
+
+// 		let newLink = document.createElement("a");
+// 		newLink.setAttribute("href", "./product.html?id=42"); // il faut integrer la var id ici
+
+// 		let newArticle = document.createElement("article");
+
+// 		let newImg = document.createElement("img");
+// 		newImg.setAttribute("src", arrayProducts[i].imageUrl);
+// 		newImg.setAttribute("alt", arrayProducts[i].altTxt);
+
+// 		let newTitle = document.createElement("h3");
+// 		newTitle.textContent = arrayProducts[i].name;
+
+// 		let newDescription = document.createElement("p");
+// 		newDescription.textContent = arrayProducts[i].description;
+
+// 		cursor.append(newLink);
+
+// 		cursor = document.querySelector(".items > a");
+// 		console.log(cursor);
+// 		cursor.append(newArticle);
+
+// 		cursor = document.querySelector(".items > a > article");
+// 		cursor.append(newImg);
+// 		cursor.append(newTitle);
+// 	}
+// }
 
 class Couch {
 	constructor(colors, id, name, price, imageUrl, description, altTxt) {

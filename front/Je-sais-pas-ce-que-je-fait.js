@@ -10,7 +10,7 @@ fetch("http://localhost:3000/api/products")
 		recup(products);
 	})
 	.catch((err) => {
-		console.log("erreurzrzerez");
+		console.log("Impossible de joindre le server");
 	});
 
 function recup(products) {
@@ -18,7 +18,7 @@ function recup(products) {
 		arrayProducts.push(
 			new Couch(
 				x.colors,
-				x.id,
+				x._id,
 				x.name,
 				x.price,
 				x.imageUrl,
@@ -28,6 +28,40 @@ function recup(products) {
 		);
 	}
 	display();
+}
+
+function display() {
+	const cursor = document.querySelector("#items");
+	let url = encodeURI(window.location.href);
+	url = url.replace("index", "product");
+
+	let newUrl = new URL(url);
+
+	for (let product of arrayProducts) {
+		newUrl.searchParams.set("id", product.id);
+		cursor.insertAdjacentHTML(
+			"afterbegin",
+			`<a href="${newUrl.href}"> 
+				<article> 
+					<img src="${product.imageUrl}" alt="${product.altTxt}">
+						 <h3 class="productName"> ${product.name} </h3> 
+						 <p class="productDescription"> ${product.description} </p> 
+				</article> 
+			</a>`
+		);
+	}
+}
+
+class Couch {
+	constructor(colors, id, name, price, imageUrl, description, altTxt) {
+		this.colors = colors;
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.imageUrl = imageUrl;
+		this.description = description;
+		this.altTxt = altTxt;
+	}
 }
 
 // function display() {
@@ -41,39 +75,10 @@ function recup(products) {
 
 // function display() {
 // 	let cursor = document.querySelector(".items");
-
-// 	let newLink = document.createElement("a");
-// 	newLink.setAttribute("href", "./product.html?id=42"); // il faut integrer la var id ici
-
-// 	let newArticle = document.createElement("article");
-
-// 	let newImg = document.createElement("img");
-// 	newImg.setAttribute("src", arrayProducts[0].imageUrl);
-// 	newImg.setAttribute("alt", arrayProducts[0].altTxt);
-
-// 	let newTitle = document.createElement("h3");
-// 	newTitle.textContent = arrayProducts[0].name;
-
-// 	let newDescription = document.createElement("p");
-// 	newDescription.textContent = arrayProducts[0].description;
-
-// 	cursor.append(newLink);
-
-// 	cursor = document.querySelector(".items > a");
-// 	console.log(cursor);
-// 	cursor.append(newArticle);
-
-// 	cursor = document.querySelector(".items > a > article");
-// 	cursor.append(newImg);
-// 	cursor.append(newTitle);
-// }
-
-// function display() {
 // 	for (let i = 0; i < arrayProducts.length; i++) {
-// 		let cursor = document.querySelector(".items");
-
 // 		let newLink = document.createElement("a");
-// 		newLink.setAttribute("href", "./product.html?id=42"); // il faut integrer la var id ici
+// 		let linkSrc = "./product.html?id=$arrayProducts[i].id";
+// 		newLink.setAttribute("href", linkSrc); // il faut integrer la var id ici
 
 // 		let newArticle = document.createElement("article");
 
@@ -89,24 +94,12 @@ function recup(products) {
 
 // 		cursor.append(newLink);
 
-// 		cursor = document.querySelector(".items > a");
-// 		console.log(cursor);
+// 		cursor = document.querySelector(".items a");
 // 		cursor.append(newArticle);
 
 // 		cursor = document.querySelector(".items > a > article");
 // 		cursor.append(newImg);
 // 		cursor.append(newTitle);
+// 		cursor.append(newDescription);
 // 	}
 // }
-
-class Couch {
-	constructor(colors, id, name, price, imageUrl, description, altTxt) {
-		this.colors = colors;
-		this.id = id;
-		this.name = name;
-		this.price = price;
-		this.imageUrl = imageUrl;
-		this.description = description;
-		this.altTxt = altTxt;
-	}
-}

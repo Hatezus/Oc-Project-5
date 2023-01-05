@@ -161,7 +161,7 @@ function calculCartCost() {
 	}
 }
 
-/*--------------------------------------------------[ Modifyings inputs ]--------------------------------------------------*/
+/*--------------------------------------------------[ Modifiers inputs ]--------------------------------------------------*/
 function activeDeleteButton() {
 	let buttons = document.querySelectorAll(
 		".cart__item__content__settings__delete"
@@ -229,57 +229,62 @@ function handleOrder() {
 
 function checkOrder() {
 	isValid = true;
-	if (
-		document.querySelector("#firstName").value.length === 0 ||
-		document.querySelector("#lastName").value.length === 0 ||
-		document.querySelector("#city").value.length === 0 ||
-		document.querySelector("#address").value.length === 0 ||
-		(document.querySelector("#email").value.length === 0) === true
-	) {
-		isValid = false;
-		alert("Tout les champs doivent être remplis");
-	}
-	if (
-		containsNumbers(document.querySelector("#firstName").value) ||
-		containsNumbers(document.querySelector("#lastName").value) ||
-		containsNumbers(document.querySelector("#city").value) === true
-	) {
-		isValid = false;
-		alert("Le champs ne peut pas comporter de chiffres");
-	}
-	if (
-		containsSpecials(document.querySelector("#firstName").value) ||
-		containsSpecials(document.querySelector("#lastName").value) ||
-		containsSpecials(document.querySelector("#address").value) ||
-		containsSpecials(document.querySelector("#city").value) === true
-	) {
-		isValid = false;
-		alert("Le champs ne peut pas contenir de caractères spéciaux");
-	}
 
-	if (
-		containsMultiplesSpaces(document.querySelector("#firstName").value) ||
-		containsMultiplesSpaces(document.querySelector("#lastName").value) ||
-		containsMultiplesSpaces(document.querySelector("#address").value) ||
-		containsMultiplesSpaces(document.querySelector("#city").value) ||
-		containsMultiplesSpaces(document.querySelector("#email").value) === true
-	) {
-		isValid = false;
-		alert(
-			"Le champs ne doit ni finir ni commencer par un espace et il ne peut pas y voir plusieurs epsces consécutifs"
-		);
-	}
-	if (containMailsNeeds(document.querySelector("#email").value) === false) {
-		isValid = false;
-		alert("L'adresse mail n'est pas au bon format");
-	}
+	while (isValid === true) {
+		if (
+			document.querySelector("#firstName").value.length === 0 ||
+			document.querySelector("#lastName").value.length === 0 ||
+			document.querySelector("#city").value.length === 0 ||
+			document.querySelector("#address").value.length === 0 ||
+			(document.querySelector("#email").value.length === 0) === true
+		) {
+			isValid = false;
+			alert("Tout les champs doivent être remplis");
+			break;
+		}
+		if (
+			containsNumbers(document.querySelector("#firstName").value) ||
+			containsNumbers(document.querySelector("#lastName").value) ||
+			containsNumbers(document.querySelector("#city").value) === true
+		) {
+			isValid = false;
+			alert("Le champs ne peut pas comporter de chiffres");
+			break;
+		}
+		if (
+			containsSpecials(document.querySelector("#firstName").value) ||
+			containsSpecials(document.querySelector("#lastName").value) ||
+			containsSpecials(document.querySelector("#address").value) ||
+			containsSpecials(document.querySelector("#city").value) === true
+		) {
+			isValid = false;
+			alert("Le champs ne peut pas contenir de caractères spéciaux");
+			break;
+		}
 
-	// if (isValid === true) {
-	// 	alert("Votre commande est transmise");
-	// 	document.location.href =
-	// 		"http://127.0.0.1:5500/front/html/confirmation.html";
-	// }
-	console.log(isValid);
+		if (
+			containsMultiplesSpaces(document.querySelector("#firstName").value) ||
+			containsMultiplesSpaces(document.querySelector("#lastName").value) ||
+			containsMultiplesSpaces(document.querySelector("#address").value) ||
+			containsMultiplesSpaces(document.querySelector("#city").value) ||
+			containsMultiplesSpaces(document.querySelector("#email").value) ===
+				true
+		) {
+			isValid = false;
+			alert(
+				"Le champs ne doit ni finir ni commencer par un espace et il ne peut pas y voir plusieurs epsces consécutifs"
+			);
+			break;
+		}
+		if (containMailsNeeds(document.querySelector("#email").value) === false) {
+			isValid = false;
+			alert("L'adresse mail n'est pas au bon format");
+			break;
+		}
+		if (isValid === true) {
+			break;
+		}
+	}
 	return isValid;
 }
 
@@ -298,7 +303,7 @@ function containsMultiplesSpaces(stringToTest) {
 }
 
 function containMailsNeeds(stringToTest) {
-	const mailsNeeds = /[@.]/;
+	const mailsNeeds = /@./;
 	return mailsNeeds.test(stringToTest);
 }
 
@@ -316,14 +321,18 @@ function createOrder() {
 	for (let i = 0; i < cartContent.length; i++) {
 		arrayOfProductsID.push(cartContent[i].id);
 	}
+	localStorage.setItem("reqAvant", JSON.stringify(req));
+	localStorage.setItem("arrayOFproduct", JSON.stringify(arrayOfProductsID));
 
 	req = contact + arrayOfProductsID;
 
-	localStorage.setItem("reqAvant", JSON.stringify(req));
+	localStorage.setItem("req", JSON.stringify(req));
 }
 
 function sendOrder() {
-	localStorage.setItem("req", JSON.stringify(req));
+	// alert("Votre commande est transmise");
+	document.location.href =
+		"http://127.0.0.1:5500/front/html/confirmation.html";
 }
 
 // function activeDeleteButton() {
